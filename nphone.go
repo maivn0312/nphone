@@ -16,6 +16,10 @@ var codes = map[string]string{
 
 func Parse(rawPhone string) (*Phone, bool) {
 	phone := new(Phone)
+	if !valid(rawPhone) {
+		return phone, false
+	}
+
 	digits := determinate(rawPhone)
 	if len(digits) < 11 {
 		return phone, false
@@ -48,6 +52,10 @@ func (phone *Phone) IsPhone() bool {
 func determinate(rawPhone string) string {
 	re := regexp.MustCompile(`\D+`)
 	return re.ReplaceAllString(rawPhone, "")
+}
+func valid(rawPhone string) bool {
+	re := regexp.MustCompile(`[^\d+()-]+`)
+	return !re.MatchString(rawPhone)
 }
 
 func inArray(values map[string]string, value string) bool {
