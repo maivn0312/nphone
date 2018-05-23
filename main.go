@@ -1,4 +1,4 @@
-package nphone
+package main
 
 import (
 	"regexp"
